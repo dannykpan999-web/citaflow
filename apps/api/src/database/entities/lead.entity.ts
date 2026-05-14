@@ -34,10 +34,10 @@ export class Lead {
   phone: string
 
   @Column({ nullable: true })
-  name: string
+  name: string | null
 
   @Column({ nullable: true })
-  serviceInterest: string
+  serviceInterest: string | null
 
   @Column({ type: 'enum', enum: LeadStatus, default: LeadStatus.NEW })
   status: LeadStatus
@@ -46,13 +46,13 @@ export class Lead {
   botActive: boolean
 
   @Column({ nullable: true })
-  assignedToUserId: string
+  assignedToUserId: string | null
 
   @Column({ nullable: true, type: 'text' })
-  internalNotes: string
+  internalNotes: string | null
 
   @Column({ nullable: true })
-  waContactId: string
+  waContactId: string | null
 
   @CreateDateColumn()
   createdAt: Date
