@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import {
   LayoutDashboard, MessageCircle, Calendar, Users,
   BarChart2, Settings, LogOut, ChevronLeft, ChevronRight,
-  HelpCircle, Bell, UserCircle, UserCog
+  HelpCircle, Bell, UserCircle, UserCog, ShieldAlert
 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 
@@ -97,6 +97,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {navItems.filter(n => n.group === 'tools').map((item) => (
             <NavItem key={item.href} item={item} collapsed={collapsed} active={pathname === item.href} />
           ))}
+
+          {user?.role === 'super_admin' && (
+            <>
+              <div className="my-3 mx-2 h-px" style={{ background: 'rgba(15,23,42,0.06)' }} />
+              {!collapsed && <p className="text-[9px] font-bold uppercase tracking-widest px-2 mb-2" style={{ color: 'rgba(239,68,68,0.50)' }}>Admin</p>}
+              <NavItem
+                item={{ icon: ShieldAlert, label: 'Super Admin', href: '/dashboard/admin', group: 'admin' }}
+                collapsed={collapsed}
+                active={pathname === '/dashboard/admin'}
+                danger
+              />
+            </>
+          )}
         </nav>
 
         {/* Help card */}
@@ -210,22 +223,30 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   )
 }
 
-function NavItem({ item, collapsed, active }: { item: typeof navItems[0]; collapsed: boolean; active: boolean }) {
+function NavItem({ item, collapsed, active, danger = false }: {
+  item: { icon: any; label: string; href: string; group: string }
+  collapsed: boolean
+  active: boolean
+  danger?: boolean
+}) {
   const Icon = item.icon
+  const activeColor = danger ? '#ef4444' : '#0891b2'
+  const activeBg = danger ? 'rgba(239,68,68,0.08)' : 'rgba(6,182,212,0.08)'
+  const dotColor = danger ? '#ef4444' : '#06b6d4'
   return (
     <a
       href={item.href}
       className="flex items-center gap-3 px-2 py-2.5 rounded-xl mb-0.5 transition-all group"
       style={{
-        background: active ? 'rgba(6,182,212,0.08)' : 'transparent',
-        color: active ? '#0891b2' : 'rgba(15,23,42,0.55)',
+        background: active ? activeBg : 'transparent',
+        color: active ? activeColor : 'rgba(15,23,42,0.55)',
       }}
       onMouseEnter={e => { if (!active) { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#0f172a' } }}
       onMouseLeave={e => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(15,23,42,0.55)' } }}
     >
       <Icon className="w-4 h-4 flex-shrink-0" />
       {!collapsed && <span className="text-sm font-medium truncate">{item.label}</span>}
-      {active && !collapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />}
+      {active && !collapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full" style={{ background: dotColor }} />}
     </a>
   )
 }

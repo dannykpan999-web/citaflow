@@ -10,6 +10,11 @@ import { EmailModule } from './email/email.module'
 import { AiModule } from './ai/ai.module'
 import { UsersModule } from './users/users.module'
 import { AppointmentsModule } from './appointments/appointments.module'
+import { ServicesModule } from './services/services.module'
+import { TemplatesModule } from './templates/templates.module'
+import { SettingsModule } from './settings/settings.module'
+import { AnalyticsModule } from './analytics/analytics.module'
+import { AdminModule } from './admin/admin.module'
 import { Tenant } from './database/entities/tenant.entity'
 import { User } from './database/entities/user.entity'
 import { Lead } from './database/entities/lead.entity'
@@ -58,6 +63,11 @@ import { MessageTemplate } from './database/entities/message-template.entity'
     AiModule,
     UsersModule,
     AppointmentsModule,
+    ServicesModule,
+    TemplatesModule,
+    SettingsModule,
+    AnalyticsModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

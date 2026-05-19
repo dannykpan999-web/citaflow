@@ -79,4 +79,57 @@ export class LeadsService {
     if (status) where.status = status
     return this.leadRepo.find({ where, order: { updatedAt: 'DESC' } })
   }
+
+  async findAllPaginated(
+    tenantId: string,
+    filters: { status?: LeadStatus; search?: string },
+    pagination: { page: number; limit: number },
+  ): Promise<{ data: Lead[]; total: number; page: number; limit: number }> {
+    const { page, limit } = pagination
+    const qb = this.leadRepo.createQueryBuilder('lead')
+      .where('lead.tenantId = :tenantId', { tenantId })
+      .orderBy('lead.updatedAt', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit)
+
+    if (filters.status) qb.andWhere('lead.status = :status', { status: filters.status })
+    if (filters.search) {
+      qb.andWhere('(lead.name ILIKE :q OR lead.phone ILIKE :q OR lead.serviceInterest ILIKE :q)', {
+        q: `%${filters.search}%`,
+      })
+    }
+
+    const [data, total] = await qb.getManyAndCount()
+    return { data, total, page, limit }
+  }
+
+  async updateLead(id: string, tenantId: string, fields: Partial<Lead>): Promise<Lead> {
+    await this.leadRepo.update({ id, tenantId }, fields)
+    return this.leadRepo.findOne({ where: { id, tenantId } })
+  }
+
+  async deleteLead(id: string, tenantId: string): Promise<void> {
+    await this.leadRepo.delete({ id, tenantId })
+  }
+
+  async getStats(tenantId: string): Promise<{
+    total: number
+    byStatus: Record<string, number>
+    newToday: number
+    conversionRate: number
+  }> {
+    const leads = await this.leadRepo.find({ where: { tenantId } })
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const byStatus: Record<string, number> = {}
+    for (const s of Object.values(LeadStatus)) byStatus[s] = 0
+    for (const l of leads) byStatus[l.status] = (byStatus[l.status] || 0) + 1
+
+    const newToday = leads.filter(l => new Date(l.createdAt) >= today).length
+    const converted = byStatus[LeadStatus.APPOINTMENT_GENERATED] + byStatus[LeadStatus.CLOSED]
+    const conversionRate = leads.length > 0 ? Math.round((converted / leads.length) * 100) : 0
+
+    return { total: leads.length, byStatus, newToday, conversionRate }
+  }
 }
