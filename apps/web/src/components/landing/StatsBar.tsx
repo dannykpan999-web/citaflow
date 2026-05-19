@@ -9,9 +9,10 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <section className="relative py-12 border-y border-white/5 overflow-hidden">
+    <section className="relative py-12 border-y border-white/5 overflow-hidden bg-[#0a0a0f]">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <p className="text-center text-[10px] text-white/20 mb-6 uppercase tracking-widest">Proyecciones de referencia · Datos de demostración</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-white/5">
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-2 px-6 text-center">

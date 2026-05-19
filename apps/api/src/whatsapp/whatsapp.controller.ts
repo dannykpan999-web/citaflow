@@ -2,9 +2,11 @@ import { Controller, Get, Post, Body, Query, Res, HttpStatus, Logger } from '@ne
 import { ConfigService } from '@nestjs/config'
 import { Response } from 'express'
 import { WhatsappService } from './whatsapp.service'
+import { LeadsService } from '../leads/leads.service'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Tenant } from '../database/entities/tenant.entity'
+import { MessageStatus } from '../database/entities/message.entity'
 
 interface WhatsappWebhookBody {
   object: string
@@ -37,6 +39,7 @@ export class WhatsappController {
 
   constructor(
     private whatsappService: WhatsappService,
+    private leadsService: LeadsService,
     private cfg: ConfigService,
     @InjectRepository(Tenant) private tenantRepo: Repository<Tenant>,
   ) {}
@@ -68,6 +71,7 @@ export class WhatsappController {
         const { value } = change
         const phoneNumberId = value.metadata?.phone_number_id
 
+        // Incoming messages
         for (const message of value.messages ?? []) {
           if (message.type !== 'text') continue
 
@@ -85,6 +89,21 @@ export class WhatsappController {
             message.text?.body ?? '',
             message.id,
           )
+        }
+
+        // Delivery status updates
+        for (const statusUpdate of value.statuses ?? []) {
+          const metaStatus = statusUpdate.status
+          let msgStatus: MessageStatus | null = null
+          if (metaStatus === 'sent')      msgStatus = MessageStatus.SENT
+          else if (metaStatus === 'delivered') msgStatus = MessageStatus.DELIVERED
+          else if (metaStatus === 'read')  msgStatus = MessageStatus.READ
+          else if (metaStatus === 'failed') msgStatus = MessageStatus.FAILED
+
+          if (msgStatus) {
+            await this.leadsService.updateMessageStatus(statusUpdate.id, msgStatus)
+            this.logger.debug(`Message ${statusUpdate.id} → ${msgStatus}`)
+          }
         }
       }
     }

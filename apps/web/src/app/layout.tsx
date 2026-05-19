@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import { AuthProvider } from '@/context/AuthContext'
 
 export const metadata: Metadata = {
-  title: 'CitaFlow — Convierte WhatsApp en citas confirmadas',
+  title: 'CitaLead — Convierte WhatsApp en citas confirmadas',
   description:
-    'CitaFlow automatiza tu agenda por WhatsApp. Responde en segundos, reduce no-shows y llena tu clínica sin esfuerzo manual.',
+    'CitaLead automatiza tu agenda por WhatsApp. Responde en segundos, reduce no-shows y llena tu clínica sin esfuerzo manual.',
   keywords: 'WhatsApp automatización citas clínica estética agendamiento',
   openGraph: {
-    title: 'CitaFlow — Automatización de citas por WhatsApp',
+    title: 'CitaLead — Automatización de citas por WhatsApp',
     description: 'Llena tu agenda. Reduce los no-shows. Todo por WhatsApp, todo en automático.',
     type: 'website',
   },
@@ -24,7 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </AuthProvider>
+      </body>
     </html>
   )
 }

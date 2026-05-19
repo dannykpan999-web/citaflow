@@ -1,126 +1,159 @@
-import { Phone, Shield, Lock, ExternalLink } from 'lucide-react'
+'use client'
+
+import { Phone, Shield, Lock } from 'lucide-react'
 
 const productLinks = [
-  { label: 'Funcionalidades', href: '#funcionalidades' },
-  { label: 'Cómo funciona', href: '#como-funciona' },
-  { label: 'Precios', href: '#precios' },
-  { label: 'Integraciones', href: '#' },
+  { label: 'Cómo funciona', href: '#funciona' },
+  { label: 'Por qué CitaLead', href: '#por-que' },
+  { label: 'Planes', href: '#planes' },
+  { label: 'Contacto', href: '#contacto' },
 ]
-
 const companyLinks = [
-  { label: 'Testimonios', href: '#testimonios' },
-  { label: 'Blog', href: '#' },
   { label: 'Privacidad', href: '#' },
   { label: 'Términos', href: '#' },
 ]
-
 const trustBadges = [
-  { label: 'WhatsApp oficial', color: '#00b37e', Icon: Phone },
-  { label: 'ISO 27001', color: '#60a5fa', Icon: Shield },
-  { label: 'GDPR comply', color: '#a855f7', Icon: Lock },
+  { label: 'WhatsApp oficial', Icon: Phone },
+  { label: 'SSL seguro', Icon: Shield },
+  { label: 'Datos protegidos', Icon: Lock },
+]
+const socialLinks = [
+  {
+    label: 'Instagram', href: '#',
+    svg: <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />,
+  },
+  {
+    label: 'Facebook', href: '#',
+    svg: <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />,
+  },
+  {
+    label: 'LinkedIn', href: '#',
+    svg: <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />,
+  },
 ]
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <footer className="relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #04060f 0%, #020408 100%)' }}>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-grid opacity-25 pointer-events-none" />
+
+      {/* Top glow line */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.18), transparent)' }} />
+
+      {/* Aurora subtle */}
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+
+      <div className="relative max-w-[1180px] mx-auto px-5 pt-14 pb-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #00b37e, #34d399)' }}
-              >
-                <Phone className="w-4 h-4 text-white" strokeWidth={2} />
+            <div className="mb-5">
+              <div className="inline-block rounded-xl px-2.5 py-1.5"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(6,182,212,0.18)' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/logo-citalead.png"
+                  alt="CitaLead"
+                  style={{ height: '28px', width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.85 }}
+                />
               </div>
-              <span
-                className="text-white font-bold text-lg"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                CitaFlow
-              </span>
             </div>
-            <p className="text-white/40 text-sm leading-relaxed max-w-xs mb-5">
-              Automatiza tu WhatsApp Business y llena tu agenda sin esfuerzo. Para clínicas estéticas
-              en México.
+            <p className="text-sm leading-relaxed max-w-xs mb-6" style={{ color: 'rgba(241,245,249,0.35)' }}>
+              Automatiza tu WhatsApp Business y llena tu agenda sin esfuerzo. Hecho exclusivamente
+              para clínicas estéticas y MedSpas en México.
             </p>
-            {/* Trust badges */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {trustBadges.map((badge) => (
-                <span
-                  key={badge.label}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-md border"
-                  style={{
-                    color: badge.color,
-                    borderColor: `${badge.color}30`,
-                    background: `${badge.color}10`,
-                  }}
-                >
-                  <badge.Icon className="w-2.5 h-2.5" strokeWidth={2} />
-                  {badge.label}
+
+            <div className="flex items-center gap-2 flex-wrap mb-6">
+              {trustBadges.map((b) => (
+                <span key={b.label}
+                  className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg"
+                  style={{ color: '#67e8f9', border: '1px solid rgba(6,182,212,0.20)', background: 'rgba(6,182,212,0.07)' }}>
+                  <b.Icon className="w-2.5 h-2.5" strokeWidth={2} />
+                  {b.label}
                 </span>
               ))}
             </div>
+
+            <div className="flex items-center gap-2">
+              {socialLinks.map((s) => (
+                <a key={s.label} href={s.href} aria-label={s.label}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(6,182,212,0.10)'; e.currentTarget.style.borderColor = 'rgba(6,182,212,0.25)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; }}>
+                  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="rgba(255,255,255,0.45)">{s.svg}</svg>
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Product links */}
+          {/* Product */}
           <div>
-            <h4
-              className="text-white font-semibold text-sm mb-4"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
+            <h4 className="text-[10px] font-bold uppercase tracking-widest mb-5"
+              style={{ color: 'rgba(241,245,249,0.25)' }}>
               Producto
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {productLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/40 text-sm hover:text-white/70 transition-colors flex items-center gap-1.5 group"
-                  >
+                  <a href={link.href}
+                    className="text-sm transition-colors"
+                    style={{ color: 'rgba(241,245,249,0.45)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#67e8f9')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(241,245,249,0.45)')}>
                     {link.label}
-                    {link.href === '#' && (
-                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    )}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company links */}
+          {/* Legal + CTA box */}
           <div>
-            <h4
-              className="text-white font-semibold text-sm mb-4"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              Empresa
+            <h4 className="text-[10px] font-bold uppercase tracking-widest mb-5"
+              style={{ color: 'rgba(241,245,249,0.25)' }}>
+              Legal
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3 mb-8">
               {companyLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/40 text-sm hover:text-white/70 transition-colors"
-                  >
+                  <a href={link.href}
+                    className="text-sm transition-colors"
+                    style={{ color: 'rgba(241,245,249,0.45)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#67e8f9')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(241,245,249,0.45)')}>
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
+
+            <div className="rounded-2xl p-4"
+              style={{ background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.14)' }}>
+              <p className="text-xs font-black mb-1" style={{ color: '#67e8f9' }}>14 días gratis</p>
+              <p className="text-[11px]" style={{ color: 'rgba(241,245,249,0.35)' }}>
+                Sin tarjeta de crédito.<br />Cancela cuando quieras.
+              </p>
+            </div>
           </div>
+
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-xs">
-            © {new Date().getFullYear()} CitaFlow. Todos los derechos reservados.
+        <div className="h-px mb-6"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-[11px]" style={{ color: 'rgba(241,245,249,0.20)' }}>
+            © {new Date().getFullYear()} CitaLead. Todos los derechos reservados.
           </p>
-          <p className="text-white/20 text-xs flex items-center gap-1">
-            Hecho con
-            <span className="text-rose-400">♥</span>
-            para clínicas estéticas en México
+          <p className="text-[11px] flex items-center gap-1" style={{ color: 'rgba(241,245,249,0.18)' }}>
+            Hecho con <span className="text-rose-400 mx-0.5">♥</span> para clínicas estéticas en México
           </p>
         </div>
       </div>

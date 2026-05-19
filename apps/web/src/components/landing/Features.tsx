@@ -13,20 +13,20 @@ import {
 const mainFeatures = [
   {
     title: 'Respuesta instantánea en WhatsApp',
-    desc: 'El bot responde en menos de 8 segundos: bienvenida, info del servicio y link de agenda. Nunca más un lead sin respuesta.',
+    desc: 'CitaLead responde en menos de 8 segundos: bienvenida, info del servicio y link de agenda. Nunca más un lead sin respuesta.',
     color: '#00b37e',
     Icon: MessageCircle,
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80&auto=format&fit=crop',
+    img: '/images/feat-01-whatsapp.jpg',
     imgAlt: 'Persona usando WhatsApp en teléfono inteligente',
     span: 'lg:col-span-2',
     imgHeight: 'h-52',
   },
   {
     title: 'Agenda automática',
-    desc: 'CitaFlow envía tu link de reservas y registra la cita al instante.',
+    desc: 'CitaLead envía tu link de reservas y registra la cita al instante.',
     color: '#a855f7',
     Icon: CalendarCheck,
-    img: 'https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=600&q=80&auto=format&fit=crop',
+    img: '/images/feat-02-calendar.jpg',
     imgAlt: 'Calendario de citas digital',
     span: 'lg:col-span-1',
     imgHeight: 'h-52',
@@ -39,17 +39,17 @@ const secondaryFeatures = [
     desc: 'Mensajes 24h y 2h antes de la cita. Reduce no-shows hasta un 75%.',
     color: '#60a5fa',
     Icon: Bell,
-    img: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=600&q=80&auto=format&fit=crop',
+    img: '/images/feat-03-reminder.jpg',
     imgAlt: 'Notificación de recordatorio en teléfono',
     span: 'lg:col-span-1',
     imgHeight: 'h-48',
   },
   {
     title: 'Seguimiento inteligente multi-etapa',
-    desc: 'Si el prospecto no agendó, CitaFlow hace follow-up a las 12h, 24h, 48h y 72h — sin intervención humana.',
+    desc: 'Si el prospecto no agendó, CitaLead hace follow-up a las 12h, 24h, 48h y 72h — sin intervención humana.',
     color: '#f59e0b',
     Icon: RefreshCw,
-    img: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&q=80&auto=format&fit=crop',
+    img: '/images/feat-04-followup.jpg',
     imgAlt: 'Secuencia de mensajes de seguimiento',
     span: 'lg:col-span-2',
     imgHeight: 'h-48',
@@ -62,17 +62,17 @@ const bottomFeatures = [
     desc: 'Visualiza leads, citas agendadas, tasa de conversión y leads recuperados. Todo actualizado al instante.',
     color: '#a855f7',
     Icon: LayoutDashboard,
-    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
+    img: '/images/feat-05-dashboard.jpg',
     imgAlt: 'Dashboard de analíticas en pantalla',
     span: 'lg:col-span-2',
     imgHeight: 'h-48',
   },
   {
     title: 'Control humano cuando se necesita',
-    desc: 'Pausa el bot con un clic y retoma la conversación. CitaFlow sabe cuándo ceder el paso.',
+    desc: 'Pausa CitaLead con un clic y retoma la conversación. El sistema sabe cuándo ceder el paso.',
     color: '#00b37e',
     Icon: UserCheck,
-    img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&auto=format&fit=crop',
+    img: '/images/feat-06-control.jpg',
     imgAlt: 'Médico usando tablet en clínica',
     span: 'lg:col-span-1',
     imgHeight: 'h-48',
@@ -135,10 +135,10 @@ function FeatureCard({ title, desc, color, Icon, img, imgAlt, span, imgHeight }:
 
 export default function Features() {
   return (
-    <section id="funcionalidades" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="funcionalidades" className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0f]">
       <div
-        className="absolute top-1/2 right-0 w-96 h-96 rounded-full blur-3xl opacity-8 pointer-events-none"
-        style={{ background: '#a855f7' }}
+        className="absolute top-1/2 right-0 w-72 h-72 rounded-full blur-3xl pointer-events-none"
+        style={{ background: '#a855f7', opacity: 0.05 }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -159,7 +159,7 @@ export default function Features() {
             <span className="gradient-text">llenar tu agenda</span>
           </h2>
           <p className="text-white/50 text-base md:text-lg leading-relaxed">
-            CitaFlow automatiza el ciclo completo: responder, agendar, recordar y hacer seguimiento.
+            CitaLead automatiza el ciclo completo: responder, agendar, recordar y hacer seguimiento.
             Sin integraciones complejas ni conocimientos técnicos.
           </p>
         </div>

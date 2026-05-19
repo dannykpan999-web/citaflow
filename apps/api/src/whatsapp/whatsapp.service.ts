@@ -4,8 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Queue } from 'bullmq'
 import { Repository } from 'typeorm'
 import { Tenant } from '../database/entities/tenant.entity'
+import { User, UserRole } from '../database/entities/user.entity'
+import { Service } from '../database/entities/service.entity'
 import { LeadsService } from '../leads/leads.service'
 import { WhatsappApiService } from './whatsapp-api.service'
+import { AiService } from '../ai/ai.service'
+import { EmailService } from '../email/email.service'
 import { FollowUpJob, FollowUpType, FollowUpStatus } from '../database/entities/follow-up-job.entity'
 import { TemplateType } from '../database/entities/message-template.entity'
 import { MessageDirection } from '../database/entities/message.entity'
@@ -19,8 +23,12 @@ export class WhatsappService {
     @InjectQueue(WHATSAPP_QUEUE) private waQueue: Queue,
     @InjectRepository(Tenant) private tenantRepo: Repository<Tenant>,
     @InjectRepository(FollowUpJob) private followUpRepo: Repository<FollowUpJob>,
+    @InjectRepository(User) private userRepo: Repository<User>,
+    @InjectRepository(Service) private serviceRepo: Repository<Service>,
     private leadsService: LeadsService,
     private waApi: WhatsappApiService,
+    private aiService: AiService,
+    private emailService: EmailService,
   ) {}
 
   async handleIncomingMessage(tenantId: string, from: string, messageBody: string, waMessageId: string) {
@@ -35,23 +43,76 @@ export class WhatsappService {
 
     if (isNew) {
       await this.sendWelcomeFlow(tenant, lead.id, from)
+
+      // Notify clinic owner of new lead (fire-and-forget)
+      this.notifyOwner(tenant, from)
+    } else if (lead.botActive) {
+      await this.sendAiResponse(tenant, lead.id, from)
     }
+  }
+
+  private async sendAiResponse(tenant: Tenant, leadId: string, phone: string) {
+    try {
+      const [messages, services] = await Promise.all([
+        this.leadsService.getMessages(leadId),
+        this.serviceRepo.find({ where: { tenantId: tenant.id, active: true } }),
+      ])
+
+      const aiResponse = await this.aiService.generateWhatsAppResponse(
+        tenant.name,
+        services.map(s => s.name),
+        tenant.agendaLink,
+        messages,
+      )
+
+      if (!aiResponse) return
+
+      await this.waApi.sendText(
+        tenant.whatsappPhoneNumberId,
+        tenant.whatsappAccessToken,
+        phone,
+        aiResponse,
+      )
+
+      await this.leadsService.saveMessage(leadId, MessageDirection.OUTBOUND, aiResponse, {
+        isAutomated: true,
+      })
+
+      this.logger.log(`AI response sent to ${phone} for lead ${leadId}`)
+    } catch (err) {
+      this.logger.error(`AI response failed for lead ${leadId}: ${err}`)
+    }
+  }
+
+  private async notifyOwner(tenant: Tenant, leadPhone: string) {
+    try {
+      const owner = await this.userRepo.findOne({
+        where: { tenantId: tenant.id, role: UserRole.OWNER, active: true },
+        select: ['email'],
+      })
+      if (owner?.email) {
+        await this.emailService.sendNewLeadNotification(owner.email, tenant.name, leadPhone)
+      }
+    } catch (err) {
+      this.logger.error(`Failed to notify owner of tenant ${tenant.id}: ${err}`)
+    }
+  }
+
+  private readonly retryOpts = {
+    attempts: 3,
+    backoff: { type: 'exponential' as const, delay: 5000 },
+    removeOnComplete: true,
+    removeOnFail: false,
   }
 
   private async sendWelcomeFlow(tenant: Tenant, leadId: string, phone: string) {
     const base = { tenantId: tenant.id, leadId, phone, phoneNumberId: tenant.whatsappPhoneNumberId, accessToken: tenant.whatsappAccessToken }
     const timings = tenant.followUpTimings ?? { followUp1Hours: 24, followUp2Hours: 48, followUp3Hours: 72 }
 
-    // Immediate welcome
-    await this.waQueue.add('send', { ...base, templateType: TemplateType.WELCOME }, { delay: 0 })
+    await this.waQueue.add('send', { ...base, templateType: TemplateType.WELCOME }, { ...this.retryOpts, delay: 0 })
+    await this.waQueue.add('send', { ...base, templateType: TemplateType.SERVICE_INFO }, { ...this.retryOpts, delay: 3000 })
+    await this.waQueue.add('send', { ...base, templateType: TemplateType.AGENDA_LINK }, { ...this.retryOpts, delay: 6000 })
 
-    // Service info after 3 seconds
-    await this.waQueue.add('send', { ...base, templateType: TemplateType.SERVICE_INFO }, { delay: 3000 })
-
-    // Agenda link after 6 seconds
-    await this.waQueue.add('send', { ...base, templateType: TemplateType.AGENDA_LINK }, { delay: 6000 })
-
-    // Schedule follow-ups
     await this.scheduleFollowUp(tenant, leadId, phone, FollowUpType.FOLLOW_UP_1, timings.followUp1Hours)
     await this.scheduleFollowUp(tenant, leadId, phone, FollowUpType.FOLLOW_UP_2, timings.followUp2Hours)
     await this.scheduleFollowUp(tenant, leadId, phone, FollowUpType.SOFT_CLOSE, timings.followUp3Hours)
@@ -82,10 +143,33 @@ export class WhatsappService {
         templateType,
         followUpJobId: followUpRecord.id,
       },
-      { delay: delayMs },
+      { ...this.retryOpts, delay: delayMs },
     )
 
     await this.followUpRepo.update(followUpRecord.id, { bullJobId: String(job.id) })
+  }
+
+  async scheduleAppointmentReminders(
+    tenant: Tenant,
+    leadId: string,
+    phone: string,
+    appointmentAt: Date,
+  ): Promise<void> {
+    const now = Date.now()
+    const apptMs = appointmentAt.getTime()
+
+    const reminders: Array<{ type: FollowUpType; offsetMs: number }> = [
+      { type: FollowUpType.REMINDER_24H, offsetMs: 24 * 60 * 60 * 1000 },
+      { type: FollowUpType.REMINDER_2H,  offsetMs: 2  * 60 * 60 * 1000 },
+    ]
+
+    for (const { type, offsetMs } of reminders) {
+      const fireAt = apptMs - offsetMs
+      const delayMs = fireAt - now
+      if (delayMs <= 0) continue // appointment too soon
+
+      await this.scheduleFollowUp(tenant, leadId, phone, type, delayMs / (60 * 60 * 1000))
+    }
   }
 
   async cancelFollowUps(leadId: string): Promise<void> {

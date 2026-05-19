@@ -1,36 +1,28 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Minus, HelpCircle } from 'lucide-react'
+import { Plus, Minus } from 'lucide-react'
 
 const faqs = [
   {
-    q: '¿Necesito conocimientos técnicos para configurar CitaFlow?',
-    a: 'No. La configuración toma menos de 10 minutos. Te guiamos paso a paso: conectas tu WhatsApp Business, personalizas los mensajes del bot y listo. Sin código, sin APIs complejas.',
+    q: '¿Es un sistema genérico de respuestas automáticas?',
+    a: 'No. Es un sistema llave en mano configurado específicamente con tus servicios, tu tono y tu agenda de WhatsApp. Tus pacientes notarán que es el asistente de tu clínica, no un sistema genérico.',
   },
   {
-    q: '¿CitaFlow funciona con cualquier herramienta de agenda?',
-    a: 'Sí. CitaFlow envía el link de tu herramienta de reservas actual (Calendly, Acuity, Google Calendar, o cualquier otra). No necesitas cambiar tu sistema existente.',
+    q: '¿Necesito cambiar mi agenda?',
+    a: 'No. Trabajamos con el link de Calendly, Google Calendar o tu agenda de preferencia. Sin migraciones, sin complicaciones — tu flujo actual se mantiene desde el primer día.',
   },
   {
-    q: '¿Qué pasa si el cliente quiere hablar con una persona?',
-    a: 'CitaFlow detecta cuando la conversación necesita atención humana. Puedes pausar el bot con un clic y retomar la conversación manualmente. El bot no interfiere cuando tú estás activo.',
+    q: '¿Cuánto tiempo tarda la activación?',
+    a: 'Normalmente en menos de 24 horas después de recibir la información necesaria. Nosotros configuramos todo: WhatsApp, servicios, mensajes y link de agenda. Tú apruebas y encendemos.',
   },
   {
-    q: '¿Es la API oficial de WhatsApp o una solución gris?',
-    a: 'Usamos la API oficial de Meta (WhatsApp Business Platform). Tu número está completamente seguro y cumple con los términos de servicio de WhatsApp. Sin riesgo de bloqueo.',
+    q: '¿Puedo intervenir en las conversaciones?',
+    a: 'Sí, en cualquier momento. El botón "Tomar control" permite pausar CitaLead para que tú o tu recepción atiendan manualmente. Después pueden reactivarlo cuando sea necesario.',
   },
   {
-    q: '¿Cuánto tiempo tarda en verse resultados?',
-    a: 'Nuestros clientes reportan mejoras desde el primer día: leads que antes no recibían respuesta rápida, ahora son atendidos en segundos. La reducción de no-shows se nota en la primera semana.',
-  },
-  {
-    q: '¿Puedo cancelar en cualquier momento?',
-    a: 'Sí, sin penalizaciones. Cancela desde tu panel con un clic. No hay contratos a largo plazo ni costos de cancelación.',
-  },
-  {
-    q: '¿Los mensajes del bot suenan robóticos?',
-    a: 'Los mensajes son completamente personalizables y están diseñados para sonar naturales. Puedes editar cada plantilla para que refleje el tono de tu clínica — formal, cercano, o el que prefieras.',
+    q: '¿Vale la pena el costo?',
+    a: 'Si CitaLead te recupera 2 prospectos al mes que antes te dejaban en visto, el sistema ya se pagó solo. Durante los 14 días de prueba medimos leads, citas y recuperados para que lo veas con tus propios números.',
   },
 ]
 
@@ -38,75 +30,87 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Label */}
-        <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-white/60 font-medium">
-            <HelpCircle className="w-3 h-3" />
+    <section className="relative py-24 md:py-28 overflow-hidden"
+      style={{ background: '#f8fafc' }}>
+
+      {/* Subtle grid */}
+      <div className="absolute inset-0 bg-grid-light opacity-50 pointer-events-none" />
+
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.20), transparent)' }} />
+
+      <div className="relative max-w-[780px] mx-auto px-5">
+
+        {/* Header */}
+        <div className="text-center mb-14 scroll-reveal">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5"
+            style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.22)', color: '#0e7490' }}>
             Preguntas frecuentes
           </span>
-        </div>
-
-        {/* Headline */}
-        <div className="text-center mb-12">
-          <h2
-            className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.03em' }}
-          >
-            Todo lo que necesitas{' '}
-            <span className="gradient-text">saber</span>
+          <h2 className="font-black leading-tight mb-4"
+            style={{ fontFamily: "'DM Sans', sans-serif",
+              fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', letterSpacing: '-0.04em', color: '#0f172a' }}>
+            Lo que nos preguntan{' '}
+            <span className="gradient-text">antes de activar.</span>
           </h2>
+          <p className="text-base" style={{ color: '#64748b' }}>
+            Respuestas directas para tomar la decisión con toda la información.
+          </p>
         </div>
 
-        {/* FAQ list */}
-        <div className="space-y-2">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border bg-[#111118] overflow-hidden transition-all duration-200"
-              style={{ borderColor: open === i ? 'rgba(0,179,126,0.25)' : 'rgba(255,255,255,0.05)' }}
-            >
-              <button
-                className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <span
-                  className="text-white font-medium text-sm sm:text-base"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  {faq.q}
-                </span>
-                <div
-                  className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200"
-                  style={
-                    open === i
-                      ? { background: '#00b37e', color: '#0a0a0f' }
-                      : { background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }
-                  }
-                >
-                  {open === i ? (
-                    <Minus className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  ) : (
-                    <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  )}
-                </div>
-              </button>
+        {/* Accordion */}
+        <div className="space-y-3 scroll-reveal-stagger">
+          {faqs.map((faq, i) => {
+            const isOpen = open === i
+            return (
+              <div key={i}
+                className="rounded-2xl overflow-hidden transition-all duration-300"
+                style={{
+                  border: isOpen ? '1px solid rgba(6,182,212,0.30)' : '1px solid rgba(15,23,42,0.08)',
+                  background: isOpen ? '#ffffff' : '#ffffff',
+                  boxShadow: isOpen ? '0 8px 32px rgba(6,182,212,0.10)' : '0 2px 8px rgba(15,23,42,0.04)',
+                }}>
 
-              <div
-                className="overflow-hidden transition-all duration-300"
-                style={{ maxHeight: open === i ? '300px' : '0px' }}
-              >
-                <p className="px-6 pb-5 text-white/50 text-sm leading-relaxed">{faq.a}</p>
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors"
+                >
+                  <span className="font-bold text-[15px] leading-snug flex-1"
+                    style={{ color: isOpen ? '#0e7490' : '#0f172a' }}>
+                    {faq.q}
+                  </span>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                    style={{
+                      background: isOpen ? 'rgba(6,182,212,0.12)' : 'rgba(15,23,42,0.06)',
+                      color: isOpen ? '#06b6d4' : '#64748b',
+                      transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)',
+                    }}>
+                    {isOpen
+                      ? <Minus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                      : <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    }
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <div className="px-6 pb-5" style={{ animation: 'accordion-open 0.25s ease both' }}>
+                    <p className="text-[14px] leading-relaxed" style={{ color: '#475569' }}>
+                      {faq.a}
+                    </p>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        {/* Bottom note */}
-        <p className="text-center text-white/30 text-sm mt-10">
+        <p className="text-center text-sm mt-10 scroll-reveal" style={{ color: '#94a3b8' }}>
           ¿Tienes otra pregunta?{' '}
-          <a href="#contacto" className="text-[#00b37e] hover:text-[#34d399] transition-colors">
+          <a href="/signup" className="font-semibold transition-colors"
+            style={{ color: '#0891b2' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#0e7490')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#0891b2')}>
             Escríbenos →
           </a>
         </p>

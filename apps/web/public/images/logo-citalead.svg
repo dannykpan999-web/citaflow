@@ -1,0 +1,45 @@
+<svg width="168" height="44" viewBox="0 0 168 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: gradient rounded square -->
+  <rect x="0" y="2" width="40" height="40" rx="11" fill="url(#iconGrad)"/>
+
+  <!-- Calendar pin left -->
+  <rect x="11.5" y="0" width="3" height="9" rx="1.5" fill="white" fill-opacity="0.92"/>
+  <!-- Calendar pin right -->
+  <rect x="25.5" y="0" width="3" height="9" rx="1.5" fill="white" fill-opacity="0.92"/>
+
+  <!-- Calendar header bar -->
+  <rect x="4" y="10" width="32" height="7" rx="0" fill="white" fill-opacity="0.14"/>
+
+  <!-- Grid row 1 -->
+  <rect x="5"    y="20" width="8" height="7" rx="2" fill="white" fill-opacity="0.45"/>
+  <rect x="16"   y="20" width="8" height="7" rx="2" fill="white" fill-opacity="0.45"/>
+  <rect x="27"   y="20" width="8" height="7" rx="2" fill="white" fill-opacity="0.45"/>
+
+  <!-- Grid row 2 -->
+  <rect x="5"    y="30" width="8" height="7" rx="2" fill="white" fill-opacity="0.45"/>
+  <!-- Highlighted cell -->
+  <rect x="16"   y="30" width="8" height="7" rx="2" fill="white"/>
+  <!-- Up-arrow in highlighted cell -->
+  <path d="M20 36L20 31.5M20 31.5L18 33.5M20 31.5L22 33.5"
+        stroke="#0891b2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="27"   y="30" width="8" height="7" rx="2" fill="white" fill-opacity="0.45"/>
+
+  <!-- Wordmark -->
+  <text x="50" y="30"
+        font-family="'DM Sans','Inter',system-ui,-apple-system,sans-serif"
+        font-size="22"
+        letter-spacing="-0.5">
+    <tspan font-weight="300" fill="#0f172a">Cita</tspan><tspan font-weight="800" fill="#0891b2">Lead</tspan>
+  </text>
+</svg>

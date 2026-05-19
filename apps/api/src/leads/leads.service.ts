@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Lead, LeadStatus } from '../database/entities/lead.entity'
-import { Message, MessageDirection, MessageType } from '../database/entities/message.entity'
+import { Message, MessageDirection, MessageStatus, MessageType } from '../database/entities/message.entity'
 
 @Injectable()
 export class LeadsService {
@@ -68,6 +68,10 @@ export class LeadsService {
       where: { leadId },
       order: { sentAt: 'ASC' },
     })
+  }
+
+  async updateMessageStatus(waMessageId: string, status: MessageStatus): Promise<void> {
+    await this.messageRepo.update({ waMessageId }, { status })
   }
 
   async findAll(tenantId: string, status?: LeadStatus): Promise<Lead[]> {

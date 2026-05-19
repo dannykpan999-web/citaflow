@@ -1,86 +1,102 @@
 import Image from 'next/image'
-import { Zap, Shield, CheckCircle2, ArrowRight } from 'lucide-react'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
-const trustItems = [
-  { Icon: Zap, text: 'Activo en menos de 5 minutos' },
-  { Icon: Shield, text: 'API oficial de Meta' },
-  { Icon: CheckCircle2, text: '120+ clínicas activas' },
+const bullets = [
+  'Setup llave en mano — nosotros configuramos todo',
+  'Sin tarjeta de crédito — 14 días de prueba real',
+  'Activación normalmente en menos de 24 horas',
 ]
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format&fit=crop"
-          alt="Clínica estética moderna"
-          fill
-          className="object-cover opacity-10"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-transparent to-[#0a0a0f]" />
-      </div>
+    <section className="relative py-10 md:py-14 overflow-hidden"
+      style={{ background: '#ffffff' }}>
 
-      {/* Glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,179,126,0.12) 0%, transparent 60%)',
-        }}
-      />
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.25), transparent)' }} />
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00b37e]/20 bg-[#00b37e]/5 text-xs text-[#00b37e] font-medium mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00b37e] animate-pulse-dot" />
-          Sin tarjeta de crédito · Sin contrato
-        </div>
+      <div className="max-w-[1180px] mx-auto px-5">
+        <div className="relative rounded-[2.5rem] overflow-hidden scroll-reveal-scale"
+          style={{ boxShadow: '0 32px 100px rgba(6,182,212,0.20)' }}>
 
-        {/* Headline */}
-        <h2
-          className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight"
-          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.03em' }}
-        >
-          Tu agenda llena empieza{' '}
-          <span className="gradient-text">hoy</span>
-        </h2>
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/images/cta-clinic.jpg"
+              alt="Clínica estética"
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(135deg, rgba(6,182,212,0.88) 0%, rgba(14,116,144,0.82) 40%, rgba(59,130,246,0.88) 100%)',
+              }} />
+            {/* Animated shine sweep */}
+            <div className="absolute inset-0 animate-shimmer opacity-30" />
+          </div>
 
-        <p className="text-white/50 text-base md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-          Únete a más de 120 clínicas que ya automatizan su WhatsApp con CitaFlow. Configura en
-          menos de 5 minutos. Los resultados llegan desde el primer día.
-        </p>
+          {/* Aurora inside CTA */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full pointer-events-none animate-aurora-2"
+            style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.20) 0%, transparent 70%)', filter: 'blur(60px)' }} />
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <a
-            href="#contacto"
-            className="btn-shine inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-[#0a0a0f] text-base transition-all duration-200 hover:scale-105"
-            style={{
-              background: 'linear-gradient(135deg, #00b37e, #34d399)',
-              boxShadow: '0 0 40px rgba(0,179,126,0.4)',
-            }}
-          >
-            Empezar gratis — 14 días
-            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-          </a>
-          <a
-            href="#como-funciona"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm text-white/70 border border-white/10 hover:border-white/25 hover:text-white hover:bg-white/5 transition-all duration-200"
-          >
-            Ver cómo funciona
-          </a>
-        </div>
+          {/* Content */}
+          <div className="relative px-8 md:px-16 py-16 md:py-20 text-center">
 
-        {/* Trust items */}
-        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-          {trustItems.map((item) => (
-            <div key={item.text} className="flex items-center gap-2 text-white/40 text-sm">
-              <item.Icon className="w-4 h-4 text-[#00b37e]" strokeWidth={1.5} />
-              <span>{item.text}</span>
+            {/* Badge */}
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-8"
+              style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)', color: '#ffffff' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+              14 días gratis · Sin tarjeta de crédito
+            </span>
+
+            <h2 className="font-black text-white leading-tight mb-6 mx-auto"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 'clamp(2.2rem, 5vw, 3.8rem)',
+                letterSpacing: '-0.05em',
+                maxWidth: '800px',
+                textShadow: '0 2px 20px rgba(0,0,0,0.30)',
+              }}>
+              Comienza a llenar tu agenda 24/7.
+              <br />
+              <span style={{ color: '#67e8f9' }}>Hoy mismo.</span>
+            </h2>
+
+            <p className="text-lg leading-relaxed mb-8 mx-auto"
+              style={{ color: 'rgba(255,255,255,0.75)', maxWidth: '560px' }}>
+              Prueba CitaLead gratis. Descubre cuántos leads estás perdiendo por velocidad de
+              respuesta y cuántos podríamos recuperar para ti.
+            </p>
+
+            {/* Bullets */}
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-10">
+              {bullets.map((b, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#34d399' }} strokeWidth={2} />
+                  <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.80)' }}>{b}</span>
+                </div>
+              ))}
             </div>
-          ))}
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/signup"
+                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full font-black text-base text-slate-900 transition-all hover:scale-105"
+                style={{ background: '#ffffff', boxShadow: '0 8px 40px rgba(255,255,255,0.25)' }}>
+                Comenzar prueba gratis
+                <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
+              </a>
+              <a href="#producto"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-white border transition-all hover:bg-white/10"
+                style={{ borderColor: 'rgba(255,255,255,0.35)' }}>
+                Ver el producto por dentro
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

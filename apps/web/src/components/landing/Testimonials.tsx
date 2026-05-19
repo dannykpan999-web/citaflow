@@ -6,13 +6,13 @@ const testimonials = [
     name: 'Mariana Torres',
     role: 'Directora, Clínica Lumina',
     quote:
-      'Antes perdíamos al menos 5 leads diarios por respuesta tardía. Con CitaFlow nuestra tasa de conversión subió 38% en el primer mes. El bot responde mejor que nosotros a las 11pm.',
+      'Antes perdíamos al menos 5 leads diarios por respuesta tardía. Con CitaLead nuestra tasa de conversión subió 38% en el primer mes. CitaLead responde mejor que nosotros a las 11pm.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80&auto=format&fit=crop',
+    avatar: '/images/test-avatar-mariana.jpg',
     metric: '+38%',
     metricLabel: 'conversión',
     color: '#00b37e',
-    clinicImg: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80&auto=format&fit=crop',
+    clinicImg: '/images/test-clinic-lumina.jpg',
   },
   {
     name: 'Sofía Reyes',
@@ -20,11 +20,11 @@ const testimonials = [
     quote:
       'El seguimiento automático es un cambio de juego. Recuperamos leads que creíamos perdidos. Una clienta agendó al tercer follow-up, 3 días después de su primer mensaje.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=80&auto=format&fit=crop',
+    avatar: '/images/test-avatar-sofia.jpg',
     metric: '72h',
     metricLabel: 'lead recuperado',
     color: '#a855f7',
-    clinicImg: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80&auto=format&fit=crop',
+    clinicImg: '/images/test-clinic-derma.jpg',
   },
   {
     name: 'Andrea Méndez',
@@ -32,11 +32,11 @@ const testimonials = [
     quote:
       'Los recordatorios automáticos redujeron nuestros no-shows de 25% a 6%. Eso se traduce en miles de pesos recuperados al mes. La configuración tomó menos de 10 minutos.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&auto=format&fit=crop',
+    avatar: '/images/test-avatar-andrea.jpg',
     metric: '-75%',
     metricLabel: 'no-shows',
     color: '#60a5fa',
-    clinicImg: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80&auto=format&fit=crop',
+    clinicImg: '/images/test-clinic-eclat.jpg',
   },
 ]
 
@@ -48,10 +48,10 @@ const bottomStats = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonios" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="testimonios" className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0f]">
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-64 rounded-full blur-3xl opacity-8 pointer-events-none"
-        style={{ background: '#00b37e' }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-48 rounded-full blur-3xl pointer-events-none"
+        style={{ background: '#00b37e', opacity: 0.05 }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -59,7 +59,7 @@ export default function Testimonials() {
         <div className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-xs text-amber-400 font-medium">
             <Star className="w-3 h-3" fill="currentColor" />
-            Testimonios reales
+            Testimonios de ejemplo
           </span>
         </div>
 
@@ -73,7 +73,7 @@ export default function Testimonials() {
             <span className="gradient-text">llenan su agenda</span>
           </h2>
           <p className="text-white/50 text-base md:text-lg">
-            Más de 120 clínicas estéticas en México confían en CitaFlow para automatizar su WhatsApp.
+            Resultados que clínicas estéticas podrían obtener al automatizar su WhatsApp con CitaLead.
           </p>
         </div>
 

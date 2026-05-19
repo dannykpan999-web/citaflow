@@ -1,21 +1,21 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
-import { CheckCircle2, ArrowRight, Loader2 } from 'lucide-react'
-
-const perks = [
-  '14 días de prueba gratuita',
-  'Configuración guiada en vivo',
-  'Sin tarjeta de crédito requerida',
-  'Soporte personalizado desde el día 1',
-]
+import Image from 'next/image'
+import { CheckCircle2, ArrowRight, Loader2, Check } from 'lucide-react'
 
 const fields = [
-  { id: 'name', label: 'Tu nombre', placeholder: 'Ej. Mariana Torres', type: 'text' },
-  { id: 'clinic', label: 'Nombre de tu clínica', placeholder: 'Ej. Clínica Lumina', type: 'text' },
-  { id: 'phone', label: 'WhatsApp Business', placeholder: '+52 55 1234 5678', type: 'tel' },
-  { id: 'email', label: 'Correo electrónico', placeholder: 'mariana@clinica.mx', type: 'email' },
+  { id: 'name',   label: 'Nombre',   placeholder: 'Tu nombre',           type: 'text', autoComplete: 'name' },
+  { id: 'clinic', label: 'Clínica',  placeholder: 'Nombre de tu clínica', type: 'text', autoComplete: 'organization' },
+  { id: 'phone',  label: 'WhatsApp', placeholder: '+52...',               type: 'tel',  autoComplete: 'tel' },
+  { id: 'city',   label: 'Ciudad',   placeholder: 'Ej. Hermosillo',       type: 'text', autoComplete: 'address-level2' },
+]
+
+const contactPoints = [
+  'Sesión de activación — tú eliges el horario.',
+  'Configuración de WhatsApp, servicios y agenda hecha por nuestro equipo.',
+  'Mensajes de seguimiento con el tono de tu clínica.',
+  'CitaLead listo normalmente en menos de 24 horas después de recibir la información necesaria.',
 ]
 
 export default function Contact() {
@@ -42,144 +42,159 @@ export default function Contact() {
   }
 
   return (
-    <section id="contacto" className="relative py-24 md:py-32 overflow-hidden">
-      <div
-        className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-8 pointer-events-none"
-        style={{ background: '#a855f7' }}
-      />
+    <section id="contacto" className="relative py-24 md:py-32 overflow-hidden"
+      style={{ background: '#f8fafc' }}>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left — copy + image */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00b37e]/20 bg-[#00b37e]/5 text-xs text-[#00b37e] font-medium mb-6">
-              Empieza gratis
-            </div>
+      {/* Grid */}
+      <div className="absolute inset-0 bg-grid-light opacity-60 pointer-events-none" />
 
-            <h2
-              className="text-3xl md:text-5xl font-bold text-white mb-5 leading-tight"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.03em' }}
-            >
-              Activa CitaFlow en{' '}
-              <span className="gradient-text">tu clínica hoy</span>
-            </h2>
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.25), transparent)' }} />
 
-            <p className="text-white/50 text-base leading-relaxed mb-8">
-              Déjanos tus datos y un especialista te contacta en menos de 2 horas para ayudarte a
-              configurar CitaFlow. Sin costo, sin compromiso.
-            </p>
+      {/* Subtle aurora */}
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none animate-aurora-1"
+        style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }} />
 
-            <ul className="space-y-3 mb-10">
-              {perks.map((perk) => (
-                <li key={perk} className="flex items-center gap-3">
-                  <CheckCircle2
-                    className="w-5 h-5 flex-shrink-0"
-                    style={{ color: '#00b37e' }}
-                    strokeWidth={1.5}
-                  />
-                  <span className="text-white/60 text-sm">{perk}</span>
-                </li>
-              ))}
-            </ul>
+      <div className="relative max-w-[1180px] mx-auto px-5">
 
-            {/* Clinic image */}
-            <div className="relative h-48 rounded-2xl overflow-hidden border border-white/5">
+        {/* Header */}
+        <div className="text-center mb-14 scroll-reveal">
+          <span className="label-chip mb-5 inline-flex">Prueba gratis 14 días</span>
+          <h2 className="font-black leading-tight mb-4 max-w-2xl mx-auto"
+            style={{ fontFamily: "'DM Sans', sans-serif",
+              fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', letterSpacing: '-0.04em', color: '#0f172a' }}>
+            Tu cuenta lista normalmente{' '}
+            <span className="gradient-text">en menos de 24 horas.</span>
+          </h2>
+          <p className="text-base max-w-lg mx-auto" style={{ color: '#64748b' }}>
+            Nosotros configuramos todo. Sin horas peleándote con plataformas.
+          </p>
+        </div>
+
+        {/* Two columns */}
+        <div className="grid lg:grid-cols-2 gap-5 max-w-[960px] mx-auto items-stretch">
+
+          {/* Left: clinic image with teal overlay */}
+          <div className="relative rounded-2xl overflow-hidden scroll-reveal-left"
+            style={{ minHeight: '400px', border: '1px solid rgba(6,182,212,0.15)', boxShadow: '0 20px 60px rgba(6,182,212,0.10)' }}>
+            <div className="absolute inset-0">
               <Image
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
-                alt="Clínica estética profesional"
+                src="/images/contact-clinic.jpg"
+                alt="Clínica estética"
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width:1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
-              <div className="absolute bottom-4 left-4">
-                <p className="text-white text-sm font-semibold">Clínica Lumina — CDMX</p>
-                <p className="text-white/50 text-xs">Cliente CitaFlow desde 2024</p>
+              <div className="absolute inset-0"
+                style={{ background: 'linear-gradient(160deg, rgba(6,182,212,0.80) 0%, rgba(59,130,246,0.85) 100%)' }} />
+            </div>
+
+            <div className="relative p-7 h-full flex flex-col">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold mb-5 self-start"
+                style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.30)', color: '#ffffff' }}>
+                Servicio Done-For-You
+              </span>
+              <h3 className="text-2xl font-black text-white leading-tight mb-3"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                Tú atiende a tus pacientes.
+                <br />Nosotros armamos todo.
+              </h3>
+              <p className="text-[14px] leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.80)' }}>
+                Hacemos una llamada de 30 minutos, entendemos tu clínica y normalmente en menos
+                de 24 horas tienes CitaLead operando con tu WhatsApp, servicios y agenda.
+              </p>
+              <div className="space-y-3 flex-1">
+                {contactPoints.map((pt, i) => (
+                  <div key={i} className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                      style={{ background: 'rgba(255,255,255,0.22)', border: '1px solid rgba(255,255,255,0.38)' }}>
+                      <Check className="w-3 h-3 text-white" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[13px] font-semibold leading-relaxed"
+                      style={{ color: 'rgba(255,255,255,0.90)' }}>{pt}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right — form */}
-          <div>
-            <div className="rounded-2xl border border-white/8 bg-[#111118] p-8">
-              {status === 'sent' ? (
-                <div className="text-center py-12">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(0,179,126,0.15)', border: '1px solid rgba(0,179,126,0.3)' }}>
-                    <CheckCircle2 className="w-7 h-7 text-[#00b37e]" strokeWidth={1.5} />
-                  </div>
-                  <h3
-                    className="text-white font-bold text-xl mb-2"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    ¡Mensaje enviado!
-                  </h3>
-                  <p className="text-white/50 text-sm">
-                    Un especialista te contactará en menos de 2 horas.
-                  </p>
+          {/* Right: form */}
+          <div className="rounded-2xl overflow-hidden scroll-reveal-right bg-white"
+            style={{ border: '1px solid rgba(15,23,42,0.08)', boxShadow: '0 20px 60px rgba(15,23,42,0.08)' }}>
+
+            {status === 'sent' ? (
+              <div className="p-10 text-center flex flex-col items-center justify-center h-full">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+                  style={{ background: 'rgba(6,182,212,0.09)', border: '1px solid rgba(6,182,212,0.22)' }}>
+                  <CheckCircle2 className="w-8 h-8 text-cyan-500" strokeWidth={1.5} />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <h3
-                    className="text-white font-bold text-xl mb-6"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Solicita tu demo gratuita
-                  </h3>
+                <h3 className="font-black text-2xl mb-2" style={{ color: '#0f172a' }}>¡Solicitud enviada!</h3>
+                <p className="text-sm" style={{ color: '#64748b' }}>
+                  El equipo de CitaLead te contactará para iniciar tu activación llave en mano.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="p-7 grid grid-cols-2 gap-4">
+                {fields.map((field) => (
+                  <label key={field.id} className="flex flex-col gap-1.5 text-[12px] font-bold"
+                    style={{ color: '#475569' }}>
+                    {field.label}
+                    <input
+                      id={field.id}
+                      name={field.id}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      autoComplete={field.autoComplete}
+                      required
+                      className="w-full px-4 py-3.5 rounded-xl text-sm placeholder-slate-300 focus:outline-none transition-all"
+                      style={{
+                        border: '1px solid rgba(15,23,42,0.12)',
+                        background: '#f8fafc',
+                        color: '#0f172a',
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(6,182,212,0.40)'
+                        e.currentTarget.style.background = '#ffffff'
+                        e.currentTarget.style.boxShadow = '0 0 0 4px rgba(6,182,212,0.08)'
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(15,23,42,0.12)'
+                        e.currentTarget.style.background = '#f8fafc'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
+                    />
+                  </label>
+                ))}
 
-                  {fields.map((field) => (
-                    <div key={field.id}>
-                      <label
-                        className="block text-white/50 text-xs font-medium mb-1.5"
-                        htmlFor={field.id}
-                      >
-                        {field.label}
-                      </label>
-                      <input
-                        id={field.id}
-                        name={field.id}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-white/8 bg-white/[0.04] text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#00b37e]/40 focus:bg-white/[0.06] transition-all duration-200"
-                      />
-                    </div>
-                  ))}
-
-                  <button
-                    type="submit"
-                    disabled={status === 'sending'}
-                    className="btn-shine w-full py-4 rounded-full font-semibold text-[#0a0a0f] text-sm transition-all duration-200 hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                    style={{
-                      background: 'linear-gradient(135deg, #00b37e, #34d399)',
-                      boxShadow: '0 0 30px rgba(0,179,126,0.3)',
-                    }}
-                  >
-                    {status === 'sending' ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        Quiero empezar gratis
-                        <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-                      </>
-                    )}
-                  </button>
-
-                  {status === 'error' && (
-                    <p className="text-rose-400 text-xs text-center">
-                      Hubo un error. Intenta de nuevo o escríbenos directamente.
-                    </p>
+                <button type="submit" disabled={status === 'sending'}
+                  className="col-span-2 btn-primary w-full justify-center mt-1 disabled:opacity-60 disabled:cursor-not-allowed">
+                  {status === 'sending' ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Enviando...</>
+                  ) : (
+                    <>Activar mi prueba gratis 14 días <ArrowRight className="w-4 h-4" strokeWidth={2.5} /></>
                   )}
+                </button>
 
-                  <p className="text-white/25 text-xs text-center">
-                    Al enviar aceptas nuestros Términos de Servicio y Política de Privacidad.
+                <a href="https://wa.me/5210000000000" target="_blank" rel="noopener"
+                  className="col-span-2 block w-full text-center py-3.5 rounded-full font-bold text-sm transition-all hover:scale-[1.01]"
+                  style={{ background: '#f0fdf4', border: '1px solid rgba(22,163,74,0.22)', color: '#16a34a' }}>
+                  💬 Hablar por WhatsApp
+                </a>
+
+                {status === 'error' && (
+                  <p className="col-span-2 text-red-500 text-xs text-center">
+                    Hubo un error. Intenta de nuevo.
                   </p>
-                </form>
-              )}
-            </div>
+                )}
+
+                <p className="col-span-2 text-[11px] leading-relaxed" style={{ color: '#94a3b8' }}>
+                  Al enviar aceptas ser contactado por CitaLead. Sin compromisos — cancelas cuando quieras.
+                </p>
+              </form>
+            )}
           </div>
+
         </div>
       </div>
     </section>

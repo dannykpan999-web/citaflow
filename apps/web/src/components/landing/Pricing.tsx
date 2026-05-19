@@ -1,199 +1,191 @@
 'use client'
 
 import Image from 'next/image'
-import { Check, Zap } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 const plans = [
   {
     name: 'Starter',
     price: '$59',
-    period: '/mes',
-    desc: 'Para clínicas que quieren automatizar WhatsApp por primera vez.',
-    color: '#60a5fa',
-    img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&auto=format&fit=crop',
-    imgAlt: 'Clínica pequeña de estética',
+    desc: 'Para clínicas que ya pierden leads y quieren empezar a recuperarlos sin complicaciones.',
+    limit: 'Hasta 300 conversaciones activas/mes',
     features: [
-      '1 número de WhatsApp Business',
-      'Hasta 300 conversaciones/mes',
-      'Bot de respuesta automática',
-      'Envío de link de agenda',
-      'Recordatorios 24h y 2h antes',
-      'Follow-up hasta 72h',
-      'Dashboard básico',
-      'Soporte por email',
+      '1 número de WhatsApp conectado',
+      'Hasta 10 servicios configurados por nosotros',
+      'Mensajes base configurados llave en mano',
+      '1 follow-up automático para leads fríos',
+      'Recordatorio de cita 24 h antes',
+      'Botón "Tomar control" (override humano)',
+      'Panel de Resultados básico',
+      'Activación normalmente en menos de 24 horas',
     ],
-    cta: 'Empezar gratis 14 días',
-    highlighted: false,
+    cta: 'Probar Starter gratis →',
+    recommended: false,
   },
   {
     name: 'Growth',
-    price: '$99',
-    period: '/mes',
-    desc: 'Para clínicas en crecimiento que necesitan más capacidad y análisis.',
-    color: '#00b37e',
-    img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80&auto=format&fit=crop',
-    imgAlt: 'Clínica moderna de tratamientos',
+    price: '$89',
+    desc: 'Para clínicas con volumen constante de leads que quieren máximo seguimiento y recuperación de citas perdidas.',
+    limit: 'Hasta 800 conversaciones activas/mes',
     features: [
-      '3 números de WhatsApp Business',
-      'Conversaciones ilimitadas',
-      'Bot avanzado con calificación',
-      'Integración con cualquier agenda',
-      'Recordatorios personalizables',
-      'Seguimiento multi-etapa configurable',
-      'Dashboard avanzado + exportar',
-      'Soporte prioritario 24/7',
-      'Onboarding personalizado',
+      'Todo lo del plan Starter, más:',
+      'Hasta 25 servicios configurados',
+      'Mensajes personalizados por servicio',
+      '3 follow-ups automáticos (24 h, 48 h y 72 h)',
+      'Recordatorio 24 h + 2 h antes de la cita',
+      'Estados completos del lead (embudo visual)',
+      'Panel de Resultados con Oportunidades de Venta',
+      'Reporte de leads inactivos rescatados',
     ],
-    cta: 'Empezar gratis 14 días',
-    highlighted: true,
-    badge: 'Más popular',
+    cta: 'Probar Growth 14 días →',
+    recommended: true,
   },
 ]
 
 export default function Pricing() {
   return (
-    <section id="precios" className="relative py-24 md:py-32 overflow-hidden">
-      <div
-        className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl opacity-8 pointer-events-none"
-        style={{ background: '#00b37e' }}
-      />
+    <section id="planes" className="relative py-24 md:py-32 overflow-hidden"
+      style={{ background: '#f8fafc' }}>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Label */}
-        <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#60a5fa]/20 bg-[#60a5fa]/5 text-xs text-[#60a5fa] font-medium">
-            Precios
+      {/* Background image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Image src="/images/bg-pricing.jpg" alt="" fill className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0" style={{ background: 'rgba(248,250,252,0.91)' }} />
+      </div>
+
+      {/* Subtle grid */}
+      <div className="absolute inset-0 bg-grid-light opacity-60 pointer-events-none" />
+
+      {/* Top glow */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.30), transparent)' }} />
+
+      <div className="relative max-w-[1180px] mx-auto px-5">
+
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12 scroll-reveal">
+          <span className="label-chip-light inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest"
+            style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.22)', color: '#0e7490' }}>
+            Planes
           </span>
-        </div>
-
-        {/* Headline */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2
-            className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.03em' }}
-          >
+          <h2 className="font-black leading-tight mb-4"
+            style={{ fontFamily: "'DM Sans', sans-serif",
+              fontSize: 'clamp(2rem, 4.5vw, 3rem)', letterSpacing: '-0.04em', color: '#0f172a' }}>
             Precio justo,{' '}
-            <span className="gradient-text">resultados reales</span>
+            <span className="gradient-text">resultados reales.</span>
           </h2>
-          <p className="text-white/50 text-base md:text-lg">
+          <p className="text-base" style={{ color: '#64748b' }}>
             Sin contratos a largo plazo. Sin costos ocultos. Cancela cuando quieras.
           </p>
         </div>
 
+        {/* Trial banner */}
+        <div className="flex items-center justify-center gap-3 px-6 py-3 rounded-full mb-10 w-fit mx-auto scroll-reveal"
+          style={{
+            border: '1px solid rgba(6,182,212,0.22)',
+            background: 'rgba(6,182,212,0.06)',
+            backdropFilter: 'blur(8px)',
+          }}>
+          <span className="w-2 h-2 rounded-full bg-cyan-500" />
+          <span className="text-sm font-bold" style={{ color: '#0e7490' }}>
+            14 días de prueba gratis incluidos en ambos planes
+          </span>
+          <span className="text-sm font-semibold" style={{ color: '#64748b' }}>·</span>
+          <span className="text-sm font-semibold" style={{ color: '#64748b' }}>Sin tarjeta de crédito</span>
+        </div>
+
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-5 max-w-[780px] mx-auto scroll-reveal-stagger">
           {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative rounded-2xl overflow-hidden border transition-all duration-300 ${
-                plan.highlighted
-                  ? 'border-[#00b37e]/30 bg-[#0f1a15]'
-                  : 'border-white/5 bg-[#111118] hover:border-white/10'
-              }`}
-            >
-              {plan.highlighted && (
-                <div
-                  className="absolute inset-0 pointer-events-none rounded-2xl"
-                  style={{ boxShadow: 'inset 0 0 60px rgba(0,179,126,0.06)' }}
-                />
-              )}
+            <div key={plan.name}
+              className={`relative rounded-2xl flex flex-col ${plan.recommended ? 'gradient-border-card' : ''}`}
+              style={{
+                background: plan.recommended ? '#ffffff' : '#ffffff',
+                boxShadow: plan.recommended
+                  ? '0 20px 60px rgba(6,182,212,0.16), 0 4px 16px rgba(6,182,212,0.08)'
+                  : '0 8px 32px rgba(15,23,42,0.08)',
+                border: plan.recommended ? 'none' : '1px solid rgba(15,23,42,0.09)',
+                padding: plan.recommended ? '28px' : '28px',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget
+                el.style.transform = 'translateY(-4px)'
+                el.style.boxShadow = plan.recommended
+                  ? '0 30px 80px rgba(6,182,212,0.22)'
+                  : '0 20px 60px rgba(15,23,42,0.14)'
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget
+                el.style.transform = ''
+                el.style.boxShadow = plan.recommended
+                  ? '0 20px 60px rgba(6,182,212,0.16), 0 4px 16px rgba(6,182,212,0.08)'
+                  : '0 8px 32px rgba(15,23,42,0.08)'
+              }}>
 
-              {/* Badge */}
-              {plan.badge && (
-                <div className="absolute top-4 right-4 z-10">
-                  <span
-                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold text-white"
-                    style={{ background: 'linear-gradient(135deg, #00b37e, #34d399)' }}
-                  >
-                    <Zap className="w-3 h-3" fill="white" />
-                    {plan.badge}
-                  </span>
+              {plan.recommended && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[11px] font-black text-white whitespace-nowrap"
+                  style={{ background: 'linear-gradient(90deg, #06b6d4, #3b82f6)', boxShadow: '0 4px 16px rgba(6,182,212,0.40)' }}>
+                  ✦ Recomendado
                 </div>
               )}
 
-              {/* Image */}
-              <div className="relative h-40 overflow-hidden">
-                <Image
-                  src={plan.img}
-                  alt={plan.imgAlt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: plan.highlighted
-                      ? 'linear-gradient(to bottom, transparent 20%, #0f1a15 100%)'
-                      : 'linear-gradient(to bottom, transparent 20%, #111118 100%)',
-                  }}
-                />
+              <h3 className="text-xl font-black mb-1" style={{ color: '#0f172a' }}>{plan.name}</h3>
+              <p className="text-sm leading-relaxed mb-5" style={{ color: '#64748b', minHeight: '42px' }}>
+                {plan.desc}
+              </p>
+
+              <div className="mb-1">
+                <span className="text-5xl font-black" style={{ color: '#0f172a', letterSpacing: '-0.06em' }}>
+                  {plan.price}
+                </span>
+                <span className="text-sm ml-1" style={{ color: '#94a3b8' }}>USD/mes</span>
+              </div>
+              <div className="text-xs font-semibold mb-5" style={{ color: '#0891b2' }}>
+                Después de los 14 días de prueba
               </div>
 
-              <div className="p-7">
-                {/* Plan name */}
-                <div className="mb-4">
-                  <h3
-                    className="text-white font-bold text-xl mb-1"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    {plan.name}
-                  </h3>
-                  <p className="text-white/40 text-sm">{plan.desc}</p>
-                </div>
-
-                {/* Price */}
-                <div className="flex items-end gap-1 mb-6">
-                  <span
-                    className="text-5xl font-extrabold"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", color: plan.color }}
-                  >
-                    {plan.price}
-                  </span>
-                  <span className="text-white/40 text-sm mb-2">{plan.period}</span>
-                </div>
-
-                {/* CTA */}
-                <a
-                  href="#contacto"
-                  className={`block w-full text-center py-3 rounded-full font-semibold text-sm mb-7 transition-all duration-200 ${
-                    plan.highlighted
-                      ? 'text-[#0a0a0f] hover:scale-105'
-                      : 'text-white border border-white/15 hover:border-white/30 hover:bg-white/5'
-                  }`}
-                  style={
-                    plan.highlighted
-                      ? {
-                          background: 'linear-gradient(135deg, #00b37e, #34d399)',
-                          boxShadow: '0 0 24px rgba(0,179,126,0.3)',
-                        }
-                      : {}
-                  }
-                >
-                  {plan.cta}
-                </a>
-
-                {/* Features */}
-                <ul className="space-y-3">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <div
-                        className="mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${plan.color}20` }}
-                      >
-                        <Check className="w-2.5 h-2.5" style={{ color: plan.color }} strokeWidth={3} />
-                      </div>
-                      <span className="text-white/60 text-sm">{f}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="rounded-xl px-4 py-3 mb-5 text-sm font-bold"
+                style={{
+                  background: plan.recommended ? 'rgba(6,182,212,0.07)' : '#f8fafc',
+                  border: `1px solid ${plan.recommended ? 'rgba(6,182,212,0.18)' : 'rgba(15,23,42,0.08)'}`,
+                  color: plan.recommended ? '#0891b2' : '#475569',
+                }}>
+                {plan.limit}
               </div>
+
+              <ul className="space-y-2.5 flex-1 mb-7">
+                {plan.features.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-[13px]">
+                    {i === 0 && plan.recommended ? (
+                      <span className="font-bold" style={{ color: '#0f172a' }}>{f}</span>
+                    ) : (
+                      <>
+                        <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: plan.recommended ? 'rgba(6,182,212,0.12)' : 'rgba(15,23,42,0.06)' }}>
+                          <Check className="w-2.5 h-2.5" style={{ color: plan.recommended ? '#06b6d4' : '#22c55e' }} strokeWidth={3} />
+                        </div>
+                        <span style={{ color: '#475569' }}>{f}</span>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+
+              <a href="/signup"
+                className={`block w-full text-center py-3.5 rounded-full font-bold text-sm transition-all duration-200 ${plan.recommended ? 'btn-primary' : ''}`}
+                style={plan.recommended ? {} : {
+                  background: '#ffffff',
+                  border: '1px solid rgba(15,23,42,0.18)',
+                  color: '#0f172a',
+                }}>
+                {plan.cta}
+              </a>
             </div>
           ))}
         </div>
 
-        {/* Trust note */}
-        <p className="text-center text-white/30 text-sm mt-8">
+        <p className="text-center text-sm mt-8 scroll-reveal" style={{ color: '#94a3b8' }}>
           14 días de prueba gratis · Sin tarjeta de crédito · Cancela cuando quieras
         </p>
       </div>

@@ -18,7 +18,7 @@ export default function WhatsappMock() {
   ]
 
   return (
-    <div className="relative animate-float">
+    <div className="relative">
       {/* Glow behind phone */}
       <div
         className="absolute inset-0 blur-3xl opacity-30 rounded-3xl"
@@ -27,7 +27,7 @@ export default function WhatsappMock() {
 
       {/* Phone frame */}
       <div
-        className="relative w-[300px] sm:w-[340px] rounded-[2.5rem] p-1.5 shadow-2xl"
+        className="relative w-[280px] sm:w-[310px] rounded-[2.5rem] p-1.5 shadow-2xl"
         style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04))' }}
       >
         <div className="rounded-[2rem] overflow-hidden bg-[#111118] border border-white/10">
@@ -53,13 +53,13 @@ export default function WhatsappMock() {
               <div className="text-white text-sm font-semibold">Clínica Lumina</div>
               <div className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse-dot" />
-                <span className="text-white/70 text-[10px]">CitaFlow está activo</span>
+                <span className="text-white/70 text-[10px]">CitaLead está activo</span>
               </div>
             </div>
           </div>
 
           {/* Chat area */}
-          <div className="px-3 py-4 space-y-2.5 bg-[#0a0a0f] min-h-[320px]">
+          <div className="px-3 py-3 space-y-2 bg-[#0a0a0f]">
             {/* Date chip */}
             <div className="flex justify-center">
               <span className="text-[10px] text-white/30 bg-white/5 px-3 py-1 rounded-full">Hoy</span>
@@ -149,7 +149,7 @@ export default function WhatsappMock() {
 
       {/* Conversion card */}
       <div
-        className="absolute -top-4 -right-4 rounded-2xl px-4 py-3 shadow-xl"
+        className="absolute -top-4 right-0 rounded-2xl px-4 py-3 shadow-xl"
         style={{
           background: 'rgba(17,17,24,0.95)',
           border: '1px solid rgba(168,85,247,0.2)',
